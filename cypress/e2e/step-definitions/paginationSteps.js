@@ -38,8 +38,8 @@ Then(/^the user should see "([^"]*)" City with the info below and an image$/, (a
 	pagination.getCityImage().should('have.attr', 'alt', arg)
     
     const arr = dataTable.rawTable.flat()
-    pagination.getData().each((el,index) => {
-        cy.wrap(el).should('have.text', arr[index])
+    pagination.getData().each(($el,index) => {
+        cy.wrap($el).should('have.text', arr[index])
     })
 });
 
