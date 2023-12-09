@@ -15,22 +15,35 @@ Then(/^the user should see the "([^"]*)" paragraph$/, (content) => {
 });
 
 
-Then(/^the user should see the "([^"]*)" button is disabled$/, (previous) => {
-	pagination.getButtons(previous).should('be.disabled')
+Then(/^the user should see the "([^"]*)" button is disabled$/, (button) => {
+	pagination.getButtons(button).should('be.disabled')
 });
 
 
-Then(/^the user should see the "([^"]*)" button is enabled$/, (next) => {
-	pagination.getButtons(next).should('be.enabled')
+Then(/^the user should see the "([^"]*)" button is enabled$/, (button) => {
+	pagination.getButtons(button).should('be.enabled')
 });
 
 
 When(/^the user clicks on the "([^"]*)" button$/, (next) => {
-        pagination.getButtons(next)
+        pagination.getButtons(next).click()
 });
 
 When(/^the user clicks on the "([^"]*)" button till it becomes disabled$/, (next) => {
-	pagination.getDisabledButton(next)
+	pagination.getButtons(next).then((button) => {
+        const clickButton = () => {
+            if(button.is(':enabled')) {
+                button.click()
+
+                pagination.getNextButton().then((nextButton) => {
+                    if(nextButton.is(':enabled')){
+                        clickButton()
+                    }
+                })
+            }
+        }
+        clickButton()
+})
 });
 
 

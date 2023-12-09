@@ -22,7 +22,7 @@ class PaginationPage {
     return cy.get("#previous");
   }
   getNextButton() {
-    return cy.get("#next").click();
+    return cy.get("#next");
   }
 
   getButtons(button) {
@@ -34,9 +34,6 @@ class PaginationPage {
     }
   }
 
-  getDisabledButton(next) {
-   return next ? this.getNextButton().should('be.enabled') : this.getNextButton().should('be.disabled')
-  }
   
   getCityImage(){
     return cy.get('.city_image')
